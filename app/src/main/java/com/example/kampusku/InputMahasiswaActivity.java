@@ -10,6 +10,8 @@ import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Calendar;
 
@@ -19,17 +21,19 @@ public class InputMahasiswaActivity extends AppCompatActivity {
     AutoCompleteTextView dropdownGender;
     Button btnSimpan;
     ImageView imgPreview;
+
     DBHelper dbHelper;
 
-    String selectedFotoPath = "", selectedGender = "";
     private static final int PICK_IMAGE_REQUEST = 1;
+    String selectedFotoPath = "";
+    boolean isImageSelected = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_mahasiswa);
 
-        // Inisialisasi komponen
+        // Inisialisasi view
         etNpm = findViewById(R.id.etNpm);
         etNama = findViewById(R.id.etNama);
         etJurusan = findViewById(R.id.etJurusan);
@@ -44,16 +48,7 @@ public class InputMahasiswaActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
-        // Setup dropdown gender
-        String[] genderItems = {"Laki-laki", "Perempuan"};
-        ArrayAdapter<String> adapterGender = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, genderItems);
-        dropdownGender.setAdapter(adapterGender);
-        dropdownGender.setOnClickListener(v -> dropdownGender.showDropDown());
-        dropdownGender.setOnItemClickListener((parent, view, position, id) -> {
-            selectedGender = adapterGender.getItem(position);
-        });
-
-        // Tanggal lahir (DatePicker)
+        // Date picker
         etTanggalLahir.setOnClickListener(v -> {
             Calendar calendar = Calendar.getInstance();
             int year = calendar.get(Calendar.YEAR);
@@ -64,19 +59,25 @@ public class InputMahasiswaActivity extends AppCompatActivity {
             }, year, month, day).show();
         });
 
-        // Klik gambar → pilih gambar
+        // Dropdown gender
+        String[] genderItems = {"Laki-laki", "Perempuan"};
+        ArrayAdapter<String> genderAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, genderItems);
+        dropdownGender.setAdapter(genderAdapter);
+        dropdownGender.setOnClickListener(v -> dropdownGender.showDropDown());
+
+        // Pilih gambar
         imgPreview.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(intent, PICK_IMAGE_REQUEST);
         });
 
-        // Simpan data ke database
+        // Simpan data
         btnSimpan.setOnClickListener(v -> {
             String npm = etNpm.getText().toString();
             String nama = etNama.getText().toString();
             String jurusan = etJurusan.getText().toString();
-            String tgl = etTanggalLahir.getText().toString();
+            String tglLahir = etTanggalLahir.getText().toString();
             String gender = dropdownGender.getText().toString();
             String alamat = etAlamat.getText().toString();
             String angkatan = etAngkatan.getText().toString();
@@ -88,7 +89,8 @@ public class InputMahasiswaActivity extends AppCompatActivity {
                 return;
             }
 
-            boolean berhasil = dbHelper.insertMahasiswa(npm, nama, jurusan, tgl, gender, alamat, angkatan, fakultas, email, selectedFotoPath);
+            // Simpan data ke database
+            boolean berhasil = dbHelper.insertMahasiswa(npm, nama, jurusan, tglLahir, gender, alamat, angkatan, fakultas, email, selectedFotoPath);
             if (berhasil) {
                 Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT).show();
                 finish();
@@ -98,22 +100,39 @@ public class InputMahasiswaActivity extends AppCompatActivity {
         });
     }
 
-    // Menangani hasil pilih gambar (dengan ContentResolver agar aman di Android 7+)
+    // Simpan gambar ke internal storage
+    private String saveImageToInternalStorage(Uri imageUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            inputStream.close();
+
+            String filename = "foto_" + System.currentTimeMillis() + ".png";
+            File file = new File(getFilesDir(), filename);
+            FileOutputStream fos = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.close();
+
+            return file.getAbsolutePath();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri uri = data.getData();
-            selectedFotoPath = uri.toString(); // simpan ke DB jika perlu
+            selectedFotoPath = saveImageToInternalStorage(uri);
+            isImageSelected = true;
 
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                imgPreview.setImageBitmap(bitmap);
-                if (inputStream != null) inputStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Gagal memuat gambar", Toast.LENGTH_SHORT).show();
+            if (!selectedFotoPath.isEmpty()) {
+                File imgFile = new File(selectedFotoPath);
+                if (imgFile.exists()) {
+                    imgPreview.setImageBitmap(BitmapFactory.decodeFile(selectedFotoPath));
+                }
             }
         }
     }
