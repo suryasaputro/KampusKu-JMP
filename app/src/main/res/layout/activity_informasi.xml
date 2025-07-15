@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Judul Halaman -->
+        <TextView
+            android:text="Informasi Aplikasi KampusKu"
+            android:textColor="@color/warnaJudul"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp" />
+
+        <!-- Deskripsi Aplikasi -->
+        <TextView
+            android:id="@+id/tvInformasi"
+            android:text="Aplikasi Kampusku merupakan aplikasi sederhana yang digunakan untuk mencatat dan mengelola data mahasiswa. Aplikasi ini memiliki fitur autentikasi, CRUD data mahasiswa, dan halaman informasi.\n\nDibuat oleh: Muhammad Surya Saputro"
+            android:textSize="16sp"
+            android:textColor="@color/warnaJudul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:justificationMode="inter_word"
+            android:textAlignment="viewStart"
+            android:lineSpacingExtra="4dp" />
+    </LinearLayout>
+</ScrollView>

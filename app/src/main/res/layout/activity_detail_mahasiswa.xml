@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="24dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Judul Tengah -->
+        <TextView
+            android:id="@+id/tvJudul"
+            android:text="Informasi Mahasiswa"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#1A237E"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- Foto Profil -->
+        <ImageView
+            android:id="@+id/imgFotoProfil"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/user"
+            android:contentDescription="Foto Profil Mahasiswa"
+            android:scaleType="centerCrop" />
+
+        <!-- NPM -->
+        <TextView
+            android:text="NPM:"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvNpm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+        <!-- Nama -->
+        <TextView
+            android:text="Nama:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E"/>
+
+        <!-- Email -->
+        <TextView
+            android:text="Email:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+        <!-- Jurusan -->
+        <TextView
+            android:text="Jurusan:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvJurusan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E"/>
+
+        <!-- Fakultas -->
+        <TextView
+            android:text="Fakultas:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvFakultas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+        <!-- Angkatan -->
+        <TextView
+            android:text="Angkatan:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvAngkatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+        <!-- Tanggal Lahir -->
+        <TextView
+            android:text="Tanggal Lahir:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvTanggalLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+        <!-- Jenis Kelamin -->
+        <TextView
+            android:text="Jenis Kelamin:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+        <!-- Alamat -->
+        <TextView
+            android:text="Alamat:"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvAlamat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1A237E" />
+
+    </LinearLayout>
+</ScrollView>

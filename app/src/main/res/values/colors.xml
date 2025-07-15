@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!-- colors.xml -->
+    <color name="warnaPrimary">#1976D2</color>
+    <color name="warnaTombol">#1976D2</color>
+    <color name="warnaTombolLogout">#FB0000</color>
+    <color name="warnaBackground">#FAFAFA</color>
+    <color name="warnaPrimaryDark">#121212</color>       <!-- Hitam -->
+    <color name="warnaBackgroundDark">#1E1E1E</color>    <!-- Abu gelap -->
+
+</resources>

@@ -1,0 +1,17 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Warna Judul untuk mode terang -->
+    <color name="warnaJudul">#000000</color>
+
+    <!-- Warna dasar tema -->
+    <style name="Base.Theme.Kampusku" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/warnaPrimary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+        <item name="android:statusBarColor">@color/warnaPrimary</item>
+        <item name="android:windowBackground">@color/warnaBackground</item>
+    </style>
+
+    <!-- Warisan dari Base Theme -->
+    <style name="Theme.Kampusku" parent="Base.Theme.Kampusku" />
+
+</resources>
